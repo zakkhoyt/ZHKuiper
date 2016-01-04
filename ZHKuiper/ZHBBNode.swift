@@ -21,9 +21,41 @@ enum ZHBBNodeColor: UInt {
     case White = 8
     case Yellow = 9
     
-    func nameFromColor(color: ZHBBNodeColor) -> String {
+    static var randomColor: ZHBBNodeColor {
+        let random = arc4random_uniform(11)
+        var color = ZHBBNodeColor.White
+        switch random {
+        case 0:
+            color = .Black
+        case 1:
+            color = .Blue
+        case 2:
+            color = .Brown
+        case 3:
+            color = .Cyan
+        case 4:
+            color = .Green
+        case 5:
+            color = .Magenta
+        case 6:
+            color = .Orange
+        case 7:
+            color = .Purple
+        case 8:
+            color = .Red
+        case 9:
+            color = .White
+        case 10:
+            color = .Yellow
+        default:
+            color = .White
+        }
+        return color
+    }
+    
+    var imageNameFromBBColor: String {
         var name = ""
-        switch color {
+        switch self {
         case .Black:
             name = "black"
         case .Blue:
@@ -50,9 +82,9 @@ enum ZHBBNodeColor: UInt {
         return name
     }
     
-    func contactBitMask(color: ZHBBNodeColor) -> UInt32 {
+    var contactBitMask: UInt32 {
         var mask: UInt32 = 0
-        switch color {
+        switch self {
         case .Black:
             mask = 1 << 1
         case .Blue:
@@ -84,43 +116,48 @@ enum ZHBBNodeColor: UInt {
 class ZHBBNode: SKSpriteNode {
 
     var seconds = UInt(20)
+    var bbColor: ZHBBNodeColor = ZHBBNodeColor.randomColor {
+        didSet{
+            // Set image, bbcolor, collision
+        }
+    }
     
     convenience init(nodeColor: ZHBBNodeColor, point: CGPoint) {
-        let name = nodeColor.nameFromColor(nodeColor)
-        self.init(imageNamed: name)
-        self.userInteractionEnabled = true
         
+        self.init(imageNamed: nodeColor.imageNameFromBBColor)
+        self.bbColor = nodeColor
+        self.userInteractionEnabled = true
         self.xScale = 4.1
         self.yScale = 4.1
         self.color = UIColor.greenColor()
         self.position = point
+        self.name = "bb"
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.width / 2.0)
         self.physicsBody?.dynamic = true
         self.physicsBody?.affectedByGravity = true
-        self.physicsBody?.contactTestBitMask = nodeColor.contactBitMask(nodeColor)
+        self.physicsBody?.contactTestBitMask = nodeColor.contactBitMask
         
         let soundAction = SKAction.playSoundFileNamed("drip.wav", waitForCompletion: false)
         self.runAction(soundAction)
         
         
-        
-        let kuiperLabel = SKLabelNode(fontNamed:"Chalkduster")
-        kuiperLabel.horizontalAlignmentMode = .Center
-        kuiperLabel.verticalAlignmentMode = .Center
-        kuiperLabel.text = "\(UInt(seconds))"
-        kuiperLabel.fontSize = 20
-        self.addChild(kuiperLabel)
-
-
-        NSTimer.scheduledTimerWithTimeInterval(1.0, block: { () -> Void in
-            
-            if self.seconds == 0 {
-                kuiperLabel.text = "X"
-            } else {
-                self.seconds--
-                kuiperLabel.text = "\(self.seconds)"
-            }
-        }, repeats: true)
+//        let timerLabel = SKLabelNode(fontNamed:"Chalkduster")
+//        timerLabel.horizontalAlignmentMode = .Center
+//        timerLabel.verticalAlignmentMode = .Center
+//        timerLabel.text = "\(UInt(seconds))"
+//        timerLabel.fontSize = 20
+//        self.addChild(timerLabel)
+//
+//
+//        NSTimer.scheduledTimerWithTimeInterval(1.0, block: { () -> Void in
+//            
+//            if self.seconds == 0 {
+//                timerLabel.text = "X"
+//            } else {
+//                self.seconds--
+//                timerLabel.text = "\(self.seconds)"
+//            }
+//        }, repeats: true)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -129,12 +166,15 @@ class ZHBBNode: SKSpriteNode {
 //            
 //        }
 //        self.physicsBody?.velocity = CGVectorMake(1000, 1000)
+        
+        
+        
         if let gravity = self.scene?.physicsWorld.gravity {
             self.physicsBody?.velocity = CGVectorMake(1000 * -gravity.dx, 1000 * -gravity.dy)
         }
     }
     
-    func remove() {
+    func remove(completion:(Void)->Void) {
 //        NSString *sparkPath = [[NSBundle mainBundle] pathForResource:@"PKSpark" ofType:@"sks"];
 //        SKEmitterNode *sparkEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:sparkPath];
         
@@ -158,6 +198,7 @@ class ZHBBNode: SKSpriteNode {
         let fadeAction = SKAction.scaleTo(0.2, duration: 0.2)
         self.runAction(fadeAction) { () -> Void in
             self.removeFromParent()
+            completion()
         }
 
         let soundAction = SKAction.playSoundFileNamed("pew.wav", waitForCompletion: false)

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHKuiper/ZHBBNode.swift"
-            timestampString = "473637180.658457"
+            timestampString = "473639558.022035"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHKuiper/GameScene.swift"
-            timestampString = "473637581.453744"
+            timestampString = "473642111.066699"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "didBeginContact(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,43 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHKuiper/ZHBBNode.swift"
-            timestampString = "473637180.658457"
+            timestampString = "473642066.290531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "init(nodeColor:point:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZHKuiper/ZHBBNode.swift"
-            timestampString = "473637180.658457"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "init(nodeColor:point:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZHKuiper/ZHBBNode.swift"
-            timestampString = "473637686.081405"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "5">
          </BreakpointContent>
