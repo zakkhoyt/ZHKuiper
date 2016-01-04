@@ -5,6 +5,22 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C67BAC9D1C373AE70049B4B4"
+               BuildableName = "ZHKuiper.app"
+               BlueprintName = "ZHKuiper"
+               ReferencedContainer = "container:ZHKuiper.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -12,7 +28,36 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C67BACB51C373AE70049B4B4"
+               BuildableName = "ZHKuiperTests.xctest"
+               BlueprintName = "ZHKuiperTests"
+               ReferencedContainer = "container:ZHKuiper.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C67BACC01C373AE70049B4B4"
+               BuildableName = "ZHKuiperUITests.xctest"
+               BlueprintName = "ZHKuiperUITests"
+               ReferencedContainer = "container:ZHKuiper.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C67BAC9D1C373AE70049B4B4"
+            BuildableName = "ZHKuiper.app"
+            BlueprintName = "ZHKuiper"
+            ReferencedContainer = "container:ZHKuiper.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -26,6 +71,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C67BAC9D1C373AE70049B4B4"
+            BuildableName = "ZHKuiper.app"
+            BlueprintName = "ZHKuiper"
+            ReferencedContainer = "container:ZHKuiper.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -35,6 +90,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C67BAC9D1C373AE70049B4B4"
+            BuildableName = "ZHKuiper.app"
+            BlueprintName = "ZHKuiper"
+            ReferencedContainer = "container:ZHKuiper.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

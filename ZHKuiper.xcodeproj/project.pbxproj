@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C6015A731C39FA1C0002694D /* drip.wav in Resources */ = {isa = PBXBuildFile; fileRef = C6015A701C39FA1C0002694D /* drip.wav */; };
+		C6015A741C39FA1C0002694D /* pew.wav in Resources */ = {isa = PBXBuildFile; fileRef = C6015A711C39FA1C0002694D /* pew.wav */; };
+		C6015A751C39FA1C0002694D /* laser.wav in Resources */ = {isa = PBXBuildFile; fileRef = C6015A721C39FA1C0002694D /* laser.wav */; };
+		C6015A7B1C3A1B8A0002694D /* ZHSpark.sks in Resources */ = {isa = PBXBuildFile; fileRef = C6015A7A1C3A1B8A0002694D /* ZHSpark.sks */; };
 		C67BACA21C373AE70049B4B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACA11C373AE70049B4B4 /* AppDelegate.swift */; };
 		C67BACA41C373AE70049B4B4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C67BACA31C373AE70049B4B4 /* GameScene.sks */; };
 		C67BACA61C373AE70049B4B4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACA51C373AE70049B4B4 /* GameScene.swift */; };
@@ -16,6 +20,9 @@
 		C67BACB01C373AE70049B4B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67BACAE1C373AE70049B4B4 /* LaunchScreen.storyboard */; };
 		C67BACBB1C373AE70049B4B4 /* ZHKuiperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACBA1C373AE70049B4B4 /* ZHKuiperTests.swift */; };
 		C67BACC61C373AE70049B4B4 /* ZHKuiperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACC51C373AE70049B4B4 /* ZHKuiperUITests.swift */; };
+		C67BACD81C373F770049B4B4 /* UIColor+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = C67BACD51C373F770049B4B4 /* UIColor+ZH.m */; };
+		C67BACD91C373F770049B4B4 /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = C67BACD71C373F770049B4B4 /* NSTimer+Blocks.m */; };
+		C67BACDB1C3749E50049B4B4 /* ZHBBNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACDA1C3749E50049B4B4 /* ZHBBNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C6015A701C39FA1C0002694D /* drip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drip.wav; sourceTree = "<group>"; };
+		C6015A711C39FA1C0002694D /* pew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pew.wav; sourceTree = "<group>"; };
+		C6015A721C39FA1C0002694D /* laser.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser.wav; sourceTree = "<group>"; };
+		C6015A7A1C3A1B8A0002694D /* ZHSpark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ZHSpark.sks; sourceTree = "<group>"; };
 		C67BAC9E1C373AE70049B4B4 /* ZHKuiper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZHKuiper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67BACA11C373AE70049B4B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C67BACA31C373AE70049B4B4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -51,6 +62,12 @@
 		C67BACC11C373AE70049B4B4 /* ZHKuiperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZHKuiperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67BACC51C373AE70049B4B4 /* ZHKuiperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZHKuiperUITests.swift; sourceTree = "<group>"; };
 		C67BACC71C373AE70049B4B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C67BACD31C373F770049B4B4 /* ZHKuiper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZHKuiper-Bridging-Header.h"; sourceTree = "<group>"; };
+		C67BACD41C373F770049B4B4 /* UIColor+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ZH.h"; sourceTree = "<group>"; };
+		C67BACD51C373F770049B4B4 /* UIColor+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ZH.m"; sourceTree = "<group>"; };
+		C67BACD61C373F770049B4B4 /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
+		C67BACD71C373F770049B4B4 /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Blocks.m"; sourceTree = "<group>"; };
+		C67BACDA1C3749E50049B4B4 /* ZHBBNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHBBNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +95,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C6015A6C1C39D8340002694D /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C67BACD41C373F770049B4B4 /* UIColor+ZH.h */,
+				C67BACD51C373F770049B4B4 /* UIColor+ZH.m */,
+				C67BACD61C373F770049B4B4 /* NSTimer+Blocks.h */,
+				C67BACD71C373F770049B4B4 /* NSTimer+Blocks.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		C6015A6D1C39D8D60002694D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C6015A7A1C3A1B8A0002694D /* ZHSpark.sks */,
+				C67BACDA1C3749E50049B4B4 /* ZHBBNode.swift */,
+				C67BACA31C373AE70049B4B4 /* GameScene.sks */,
+				C67BACA51C373AE70049B4B4 /* GameScene.swift */,
+				C67BACA71C373AE70049B4B4 /* GameViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		C6015A6E1C39D8DC0002694D /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				C67BACA91C373AE70049B4B4 /* Main.storyboard */,
+				C67BACAC1C373AE70049B4B4 /* Assets.xcassets */,
+				C67BACAE1C373AE70049B4B4 /* LaunchScreen.storyboard */,
+			);
+			name = UserInterface;
+			sourceTree = "<group>";
+		};
+		C6015A6F1C39D8F20002694D /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C67BACA11C373AE70049B4B4 /* AppDelegate.swift */,
+				C67BACB11C373AE70049B4B4 /* Info.plist */,
+				C67BACD31C373F770049B4B4 /* ZHKuiper-Bridging-Header.h */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C6015A761C39FA200002694D /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				C6015A701C39FA1C0002694D /* drip.wav */,
+				C6015A711C39FA1C0002694D /* pew.wav */,
+				C6015A721C39FA1C0002694D /* laser.wav */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
 		C67BAC951C373AE70049B4B4 = {
 			isa = PBXGroup;
 			children = (
@@ -101,14 +171,11 @@
 		C67BACA01C373AE70049B4B4 /* ZHKuiper */ = {
 			isa = PBXGroup;
 			children = (
-				C67BACA11C373AE70049B4B4 /* AppDelegate.swift */,
-				C67BACA31C373AE70049B4B4 /* GameScene.sks */,
-				C67BACA51C373AE70049B4B4 /* GameScene.swift */,
-				C67BACA71C373AE70049B4B4 /* GameViewController.swift */,
-				C67BACA91C373AE70049B4B4 /* Main.storyboard */,
-				C67BACAC1C373AE70049B4B4 /* Assets.xcassets */,
-				C67BACAE1C373AE70049B4B4 /* LaunchScreen.storyboard */,
-				C67BACB11C373AE70049B4B4 /* Info.plist */,
+				C6015A761C39FA200002694D /* Audio */,
+				C6015A6C1C39D8340002694D /* Categories */,
+				C6015A6F1C39D8F20002694D /* SupportingFiles */,
+				C6015A6D1C39D8D60002694D /* ViewController */,
+				C6015A6E1C39D8DC0002694D /* UserInterface */,
 			);
 			path = ZHKuiper;
 			sourceTree = "<group>";
@@ -235,9 +302,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6015A731C39FA1C0002694D /* drip.wav in Resources */,
+				C6015A751C39FA1C0002694D /* laser.wav in Resources */,
 				C67BACA41C373AE70049B4B4 /* GameScene.sks in Resources */,
 				C67BACB01C373AE70049B4B4 /* LaunchScreen.storyboard in Resources */,
+				C6015A741C39FA1C0002694D /* pew.wav in Resources */,
 				C67BACAD1C373AE70049B4B4 /* Assets.xcassets in Resources */,
+				C6015A7B1C3A1B8A0002694D /* ZHSpark.sks in Resources */,
 				C67BACAB1C373AE70049B4B4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,7 +335,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C67BACA61C373AE70049B4B4 /* GameScene.swift in Sources */,
+				C67BACD81C373F770049B4B4 /* UIColor+ZH.m in Sources */,
 				C67BACA81C373AE70049B4B4 /* GameViewController.swift in Sources */,
+				C67BACDB1C3749E50049B4B4 /* ZHBBNode.swift in Sources */,
+				C67BACD91C373F770049B4B4 /* NSTimer+Blocks.m in Sources */,
 				C67BACA21C373AE70049B4B4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,7 +430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -395,7 +469,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -407,10 +481,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ZHKuiper/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHKuiper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZHKuiper/ZHKuiper-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -418,10 +496,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ZHKuiper/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHKuiper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZHKuiper/ZHKuiper-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -494,6 +575,7 @@
 				C67BACCC1C373AE70049B4B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C67BACCD1C373AE70049B4B4 /* Build configuration list for PBXNativeTarget "ZHKuiperTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +584,7 @@
 				C67BACCF1C373AE70049B4B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C67BACD01C373AE70049B4B4 /* Build configuration list for PBXNativeTarget "ZHKuiperUITests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +593,7 @@
 				C67BACD21C373AE70049B4B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
