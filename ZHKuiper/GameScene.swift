@@ -10,7 +10,7 @@ import SpriteKit
 import CoreMotion
 
 
-let kMaxBBCount = 100
+let kMaxBBCount = 40
 
 class GameScene: SKScene {
     
@@ -19,6 +19,8 @@ class GameScene: SKScene {
     var point1: CGPoint = CGPointZero
     var point2: CGPoint = CGPointZero
     var ref = CGPathCreateMutable()
+    var matchCounter: UInt = 0
+    var startTime = NSDate()
     
     override func didMoveToView(view: SKView) {
         
@@ -34,7 +36,6 @@ class GameScene: SKScene {
                 if now.timeIntervalSinceDate(lastDate) > 0.1 {
                     lastDate = now
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                        print("gravity")
                         self.physicsWorld.gravity = CGVectorMake(CGFloat(x), CGFloat(y))
                     })
                 }
@@ -46,24 +47,29 @@ class GameScene: SKScene {
         tapGestureRecognizer.numberOfTapsRequired = 4
         self.view?.addGestureRecognizer(tapGestureRecognizer)
         
-//        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:");
-//        self.view?.addGestureRecognizer(panGestureRecognizer);
+//        /* Setup your scene here */
+//        let kuiperLabel = SKLabelNode(fontNamed:"Chalkduster")
+//        kuiperLabel.text = "Kuiper!"
+//        kuiperLabel.fontSize = 72
+//        kuiperLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+//        kuiperLabel.physicsBody = SKPhysicsBody(circleOfRadius: 30)
+//        kuiperLabel.physicsBody?.dynamic = true
+//        kuiperLabel.physicsBody?.affectedByGravity = true
+//        self.addChild(kuiperLabel)
         
+        let matchCountLabel = SKLabelNode(fontNamed:"Chalkduster")
+        matchCountLabel.name = "matchCountLabel"
+        matchCountLabel.text = "0 points"
+        matchCountLabel.fontSize = 72
+        matchCountLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+        self.addChild(matchCountLabel)
+
         
-        /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Kuiper!"
-        myLabel.fontSize = 72
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        myLabel.physicsBody = SKPhysicsBody(circleOfRadius: 30)
-        myLabel.physicsBody?.dynamic = true
-        myLabel.physicsBody?.affectedByGravity = true
-        
-        
-        self.addChild(myLabel)
-        
-        NSTimer.scheduledTimerWithTimeInterval(0.5, block: { () -> Void in
-            self.addSpriteAtPoint(CGPoint(x: self.frame.size.width / 2.0, y: self.frame.size.height - 30))
+
+        NSTimer.scheduledTimerWithTimeInterval(0.1, block: { () -> Void in
+            
+            let randomX = arc4random_uniform(UInt32(self.frame.size.width))
+            self.addSpriteAtPoint(CGPoint(x: CGFloat(randomX), y: self.frame.size.height - 30))
             }, repeats: true)
         
     }
@@ -120,6 +126,11 @@ class GameScene: SKScene {
     }
     
     func addSpriteAtPoint(point: CGPoint) {
+        
+        if self.children.count > kMaxBBCount {
+            return
+        }
+        
         let random = arc4random_uniform(11)
         var color = ZHBBNodeColor.White
         switch random {
@@ -164,10 +175,6 @@ class GameScene: SKScene {
                 child.removeFromParent()
             })
         }
-//        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.4 * Double(NSEC_PER_SEC)))
-//        dispatch_after(delayTime, dispatch_get_main_queue()) {
-//            self.bbs.removeAll()
-//        }
     }
 }
 
@@ -181,6 +188,10 @@ extension GameScene: SKPhysicsContactDelegate {
             let bodyB = contact.bodyB.node as! ZHBBNode
             bodyA.remove()
             bodyB.remove()
+            matchCounter++
+            if let matchCountLabel = self.childNodeWithName("matchCountLabel") as? SKLabelNode {
+                matchCountLabel.text = "\(matchCounter) points"
+            }
         }
     }
     
