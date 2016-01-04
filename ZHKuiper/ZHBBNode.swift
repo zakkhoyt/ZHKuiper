@@ -83,10 +83,12 @@ enum ZHBBNodeColor: UInt {
 
 class ZHBBNode: SKSpriteNode {
 
+    var seconds = UInt(20)
     
     convenience init(nodeColor: ZHBBNodeColor, point: CGPoint) {
         let name = nodeColor.nameFromColor(nodeColor)
         self.init(imageNamed: name)
+        self.userInteractionEnabled = true
         
         self.xScale = 4.1
         self.yScale = 4.1
@@ -99,13 +101,36 @@ class ZHBBNode: SKSpriteNode {
         
         let soundAction = SKAction.playSoundFileNamed("drip.wav", waitForCompletion: false)
         self.runAction(soundAction)
+        
+        
+        
+        let kuiperLabel = SKLabelNode(fontNamed:"Chalkduster")
+        kuiperLabel.horizontalAlignmentMode = .Center
+        kuiperLabel.verticalAlignmentMode = .Center
+        kuiperLabel.text = "\(UInt(seconds))"
+        kuiperLabel.fontSize = 20
+        self.addChild(kuiperLabel)
 
+
+        NSTimer.scheduledTimerWithTimeInterval(1.0, block: { () -> Void in
+            
+            if self.seconds == 0 {
+                kuiperLabel.text = "X"
+            } else {
+                self.seconds--
+                kuiperLabel.text = "\(self.seconds)"
+            }
+        }, repeats: true)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let push = SKAction.moveByX(-100, y: 100, duration: 0.3)
-        runAction(push) { () -> Void in
-            
+//        let push = SKAction.moveByX(-100, y: 100, duration: 0.3)
+//        runAction(push) { () -> Void in
+//            
+//        }
+//        self.physicsBody?.velocity = CGVectorMake(1000, 1000)
+        if let gravity = self.scene?.physicsWorld.gravity {
+            self.physicsBody?.velocity = CGVectorMake(1000 * -gravity.dx, 1000 * -gravity.dy)
         }
     }
     
