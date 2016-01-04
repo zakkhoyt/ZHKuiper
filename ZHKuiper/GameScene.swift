@@ -47,30 +47,30 @@ class GameScene: SKScene {
         tapGestureRecognizer.numberOfTapsRequired = 4
         self.view?.addGestureRecognizer(tapGestureRecognizer)
         
-//        /* Setup your scene here */
-//        let kuiperLabel = SKLabelNode(fontNamed:"Chalkduster")
-//        kuiperLabel.text = "Kuiper!"
-//        kuiperLabel.fontSize = 72
-//        kuiperLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-//        kuiperLabel.physicsBody = SKPhysicsBody(circleOfRadius: 30)
-//        kuiperLabel.physicsBody?.dynamic = true
-//        kuiperLabel.physicsBody?.affectedByGravity = true
-//        self.addChild(kuiperLabel)
+        /* Setup your scene here */
+        let kuiperLabel = SKLabelNode(fontNamed:"Chalkduster")
+        kuiperLabel.text = "Kuiper!"
+        kuiperLabel.fontSize = 72
+        kuiperLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+        kuiperLabel.physicsBody = SKPhysicsBody(circleOfRadius: 30)
+        kuiperLabel.physicsBody?.dynamic = true
+        kuiperLabel.physicsBody?.affectedByGravity = true
+        self.addChild(kuiperLabel)
         
-        let matchCountLabel = SKLabelNode(fontNamed:"Chalkduster")
-        matchCountLabel.name = "matchCountLabel"
-        matchCountLabel.text = "0 points"
-        matchCountLabel.fontSize = 72
-        matchCountLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        self.addChild(matchCountLabel)
+//        let matchCountLabel = SKLabelNode(fontNamed:"Chalkduster")
+//        matchCountLabel.name = "matchCountLabel"
+//        matchCountLabel.text = "0 points"
+//        matchCountLabel.fontSize = 72
+//        matchCountLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+//        self.addChild(matchCountLabel)
 
         
 
-        NSTimer.scheduledTimerWithTimeInterval(0.1, block: { () -> Void in
-            
-            let randomX = arc4random_uniform(UInt32(self.frame.size.width))
-            self.addSpriteAtPoint(CGPoint(x: CGFloat(randomX), y: self.frame.size.height - 30))
-            }, repeats: true)
+//        NSTimer.scheduledTimerWithTimeInterval(0.1, block: { () -> Void in
+//            
+//            let randomX = arc4random_uniform(UInt32(self.frame.size.width))
+//            self.addSpriteAtPoint(CGPoint(x: CGFloat(randomX), y: self.frame.size.height - 30))
+//            }, repeats: true)
         
     }
     
@@ -97,32 +97,35 @@ class GameScene: SKScene {
     
     func touch(touches: Set<UITouch>, withEvent event: UIEvent?) {
     
+//        for touch in touches {
+//            point2 = touch.locationInNode(self)
+//            if let blockNode = blockNode {
+//                
+//                ref = CGPathCreateMutable()
+//                CGPathMoveToPoint(ref, nil, point1.x, point1.y)
+//                CGPathAddLineToPoint(ref, nil, point2.x, point2.y)
+//                blockNode.path = ref
+//                blockNode.physicsBody = SKPhysicsBody(edgeLoopFromPath: ref)
+//            } else {
+//
+//                blockNode = SKShapeNode()
+//                CGPathMoveToPoint(ref, nil, point1.x, point1.y)
+//                CGPathAddLineToPoint(ref, nil, point2.x, point2.y)
+//                blockNode!.path = ref
+//                blockNode!.lineWidth = 20
+//                blockNode?.lineCap = .Round
+//                blockNode!.fillColor = UIColor.whiteColor()
+//                blockNode!.strokeColor = UIColor.whiteColor()
+//                blockNode!.physicsBody = SKPhysicsBody(edgeLoopFromPath: ref)
+//                blockNode!.physicsBody!.dynamic = true
+//                blockNode!.physicsBody!.affectedByGravity = false
+//                self.addChild(blockNode!)
+//            }
+//        }
         for touch in touches {
-            point2 = touch.locationInNode(self)
-            if let blockNode = blockNode {
-                
-                ref = CGPathCreateMutable()
-                CGPathMoveToPoint(ref, nil, point1.x, point1.y)
-                CGPathAddLineToPoint(ref, nil, point2.x, point2.y)
-                blockNode.path = ref
-                blockNode.physicsBody = SKPhysicsBody(edgeLoopFromPath: ref)
-            } else {
-
-                blockNode = SKShapeNode()
-                CGPathMoveToPoint(ref, nil, point1.x, point1.y)
-                CGPathAddLineToPoint(ref, nil, point2.x, point2.y)
-                blockNode!.path = ref
-                blockNode!.lineWidth = 20
-                blockNode?.lineCap = .Round
-                blockNode!.fillColor = UIColor.whiteColor()
-                blockNode!.strokeColor = UIColor.whiteColor()
-                blockNode!.physicsBody = SKPhysicsBody(edgeLoopFromPath: ref)
-                blockNode!.physicsBody!.dynamic = true
-                blockNode!.physicsBody!.affectedByGravity = false
-                self.addChild(blockNode!)
-            }
+            let point = touch.locationInNode(self)
+            addSpriteAtPoint(point)
         }
-
     }
     
     func addSpriteAtPoint(point: CGPoint) {
