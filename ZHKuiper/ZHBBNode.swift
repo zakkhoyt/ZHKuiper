@@ -45,7 +45,7 @@ enum ZHBBNodeColor: UInt {
     case PurpleStar = 29
     case RedStar = 30
     case WhiteStar = 31
-//    case YellowStar = 32
+    case YellowStar = 32
 
     
     static var randomColor: ZHBBNodeColor {
@@ -116,8 +116,8 @@ enum ZHBBNodeColor: UInt {
             color = .RedStar
         case 31:
             color = .WhiteStar
-//        case 32:
-//            color = .YellowStar
+        case 32:
+            color = .YellowStar
             
         default:
             color = .White
@@ -192,8 +192,8 @@ enum ZHBBNodeColor: UInt {
             name = "red_star"
         case .WhiteStar:
             name = "white_star"
-//        case .YellowStar:
-//            name = "yellow_star"
+        case .YellowStar:
+            name = "yellow_star"
         }
         return name
     }
@@ -265,8 +265,8 @@ enum ZHBBNodeColor: UInt {
             mask = 1 << 30
         case .WhiteStar:
             mask = 1 << 31
-//        case .YellowStar:
-//            mask = 1 << 32
+        case .YellowStar:
+            mask =  1 << 21
         }
         return mask
     }
@@ -316,7 +316,35 @@ class ZHBBNode: SKSpriteNode {
         switch behavior {
         case .TapMomentum:
             if let gravity = self.scene?.physicsWorld.gravity {
-                self.physicsBody?.velocity = CGVectorMake(1000 * -gravity.dx, 1000 * -gravity.dy)
+                let factor = CGFloat(1000)
+                
+                if -gravity.dx < 1.0 && -gravity.dy < 1.0 {
+                    
+                    // make a random vector of some strength
+                    var randomX = CGFloat(Float(arc4random()) / Float(UINT32_MAX)) // 0.0 - 1.0
+                    randomX -= 0.5  // -0.5 - 0.5
+                    randomX *= 2    // -1.0 - 1.0
+                    randomX *= factor
+                    randomX *= 3
+                    
+                    var randomY = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
+                    randomY -= 0.5
+                    randomY *= 2
+                    randomY *= factor
+                    randomY *= 3
+                
+                    print("rgravity: \(randomX)x\(randomY)")
+                    self.physicsBody?.velocity = CGVectorMake(randomX, randomY)
+                } else {
+                    var x = -gravity.dx
+                    x *= factor
+                    var y = -gravity.dy
+                    y *= factor
+                    
+                    print("gravity: \(x)x\(y)")
+                    self.physicsBody?.velocity = CGVectorMake(x, y)
+                }
+                
             }
         case .TapDrag:
             

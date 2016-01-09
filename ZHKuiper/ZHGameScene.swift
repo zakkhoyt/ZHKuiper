@@ -28,7 +28,7 @@ class ZHGameScene: SKScene {
     override func didMoveToView(view: SKView) {
         
         self.physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
-        self.physicsWorld.speed = 5;
+        self.physicsWorld.speed = 3;
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self;
         
