@@ -12,9 +12,9 @@
 		C6015A751C39FA1C0002694D /* laser.wav in Resources */ = {isa = PBXBuildFile; fileRef = C6015A721C39FA1C0002694D /* laser.wav */; };
 		C6015A7B1C3A1B8A0002694D /* ZHSpark.sks in Resources */ = {isa = PBXBuildFile; fileRef = C6015A7A1C3A1B8A0002694D /* ZHSpark.sks */; };
 		C67BACA21C373AE70049B4B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACA11C373AE70049B4B4 /* AppDelegate.swift */; };
-		C67BACA41C373AE70049B4B4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C67BACA31C373AE70049B4B4 /* GameScene.sks */; };
-		C67BACA61C373AE70049B4B4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACA51C373AE70049B4B4 /* GameScene.swift */; };
-		C67BACA81C373AE70049B4B4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACA71C373AE70049B4B4 /* GameViewController.swift */; };
+		C67BACA41C373AE70049B4B4 /* ZHGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C67BACA31C373AE70049B4B4 /* ZHGameScene.sks */; };
+		C67BACA61C373AE70049B4B4 /* ZHGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACA51C373AE70049B4B4 /* ZHGameScene.swift */; };
+		C67BACA81C373AE70049B4B4 /* ZHGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACA71C373AE70049B4B4 /* ZHGameViewController.swift */; };
 		C67BACAB1C373AE70049B4B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67BACA91C373AE70049B4B4 /* Main.storyboard */; };
 		C67BACAD1C373AE70049B4B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67BACAC1C373AE70049B4B4 /* Assets.xcassets */; };
 		C67BACB01C373AE70049B4B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67BACAE1C373AE70049B4B4 /* LaunchScreen.storyboard */; };
@@ -23,6 +23,8 @@
 		C67BACD81C373F770049B4B4 /* UIColor+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = C67BACD51C373F770049B4B4 /* UIColor+ZH.m */; };
 		C67BACD91C373F770049B4B4 /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = C67BACD71C373F770049B4B4 /* NSTimer+Blocks.m */; };
 		C67BACDB1C3749E50049B4B4 /* ZHBBNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACDA1C3749E50049B4B4 /* ZHBBNode.swift */; };
+		C6F91A4C1C40DAF500483FAD /* ZHMagic.sks in Resources */ = {isa = PBXBuildFile; fileRef = C6F91A4A1C40DAF500483FAD /* ZHMagic.sks */; };
+		C6F91A4D1C40DAF500483FAD /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F91A4B1C40DAF500483FAD /* spark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,9 +51,9 @@
 		C6015A7A1C3A1B8A0002694D /* ZHSpark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ZHSpark.sks; sourceTree = "<group>"; };
 		C67BAC9E1C373AE70049B4B4 /* ZHKuiper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZHKuiper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67BACA11C373AE70049B4B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C67BACA31C373AE70049B4B4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		C67BACA51C373AE70049B4B4 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		C67BACA71C373AE70049B4B4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		C67BACA31C373AE70049B4B4 /* ZHGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ZHGameScene.sks; sourceTree = "<group>"; };
+		C67BACA51C373AE70049B4B4 /* ZHGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZHGameScene.swift; sourceTree = "<group>"; };
+		C67BACA71C373AE70049B4B4 /* ZHGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZHGameViewController.swift; sourceTree = "<group>"; };
 		C67BACAA1C373AE70049B4B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C67BACAC1C373AE70049B4B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C67BACAF1C373AE70049B4B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -68,6 +70,8 @@
 		C67BACD61C373F770049B4B4 /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
 		C67BACD71C373F770049B4B4 /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Blocks.m"; sourceTree = "<group>"; };
 		C67BACDA1C3749E50049B4B4 /* ZHBBNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHBBNode.swift; sourceTree = "<group>"; };
+		C6F91A4A1C40DAF500483FAD /* ZHMagic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ZHMagic.sks; sourceTree = "<group>"; };
+		C6F91A4B1C40DAF500483FAD /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,9 +115,11 @@
 			children = (
 				C6015A7A1C3A1B8A0002694D /* ZHSpark.sks */,
 				C67BACDA1C3749E50049B4B4 /* ZHBBNode.swift */,
-				C67BACA31C373AE70049B4B4 /* GameScene.sks */,
-				C67BACA51C373AE70049B4B4 /* GameScene.swift */,
-				C67BACA71C373AE70049B4B4 /* GameViewController.swift */,
+				C67BACA31C373AE70049B4B4 /* ZHGameScene.sks */,
+				C67BACA51C373AE70049B4B4 /* ZHGameScene.swift */,
+				C67BACA71C373AE70049B4B4 /* ZHGameViewController.swift */,
+				C6F91A4A1C40DAF500483FAD /* ZHMagic.sks */,
+				C6F91A4B1C40DAF500483FAD /* spark.png */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -304,8 +310,10 @@
 			files = (
 				C6015A731C39FA1C0002694D /* drip.wav in Resources */,
 				C6015A751C39FA1C0002694D /* laser.wav in Resources */,
-				C67BACA41C373AE70049B4B4 /* GameScene.sks in Resources */,
+				C6F91A4C1C40DAF500483FAD /* ZHMagic.sks in Resources */,
+				C67BACA41C373AE70049B4B4 /* ZHGameScene.sks in Resources */,
 				C67BACB01C373AE70049B4B4 /* LaunchScreen.storyboard in Resources */,
+				C6F91A4D1C40DAF500483FAD /* spark.png in Resources */,
 				C6015A741C39FA1C0002694D /* pew.wav in Resources */,
 				C67BACAD1C373AE70049B4B4 /* Assets.xcassets in Resources */,
 				C6015A7B1C3A1B8A0002694D /* ZHSpark.sks in Resources */,
@@ -334,9 +342,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C67BACA61C373AE70049B4B4 /* GameScene.swift in Sources */,
+				C67BACA61C373AE70049B4B4 /* ZHGameScene.swift in Sources */,
 				C67BACD81C373F770049B4B4 /* UIColor+ZH.m in Sources */,
-				C67BACA81C373AE70049B4B4 /* GameViewController.swift in Sources */,
+				C67BACA81C373AE70049B4B4 /* ZHGameViewController.swift in Sources */,
 				C67BACDB1C3749E50049B4B4 /* ZHBBNode.swift in Sources */,
 				C67BACD91C373F770049B4B4 /* NSTimer+Blocks.m in Sources */,
 				C67BACA21C373AE70049B4B4 /* AppDelegate.swift in Sources */,
