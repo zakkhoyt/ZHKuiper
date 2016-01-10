@@ -1,0 +1,4 @@
+* Change size
+* Clear all
+* Disappear timer
+* Skip intro

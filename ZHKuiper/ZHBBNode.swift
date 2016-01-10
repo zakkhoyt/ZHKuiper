@@ -10,7 +10,7 @@ import SpriteKit
 
 let ZHBBNodeFullScale = CGFloat(2.0)
 let ZHBBNodeDragScale = CGFloat(3.0)
-let ZHBBNodeSpawnScale = CGFloat(0.1)
+let ZHBBNodeSpawnScale = CGFloat(0.05)
 
 enum ZHBBNodeColor: UInt {
     case Black = 0
@@ -280,6 +280,7 @@ enum ZHBBNodeBehavior: UInt {
 enum ZHBBNodeSound: String {
     case Pew = "pew.wav"
     case Drip = "drip.wav"
+    case Laser = "laser.wav"
 }
 
 class ZHBBNode: SKSpriteNode {
@@ -315,37 +316,7 @@ class ZHBBNode: SKSpriteNode {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         switch behavior {
         case .TapMomentum:
-            if let gravity = self.scene?.physicsWorld.gravity {
-                let factor = CGFloat(1000)
-                
-                if -gravity.dx < 1.0 && -gravity.dy < 1.0 {
-                    
-                    // make a random vector of some strength
-                    var randomX = CGFloat(Float(arc4random()) / Float(UINT32_MAX)) // 0.0 - 1.0
-                    randomX -= 0.5  // -0.5 - 0.5
-                    randomX *= 2    // -1.0 - 1.0
-                    randomX *= factor
-                    randomX *= 3
-                    
-                    var randomY = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
-                    randomY -= 0.5
-                    randomY *= 2
-                    randomY *= factor
-                    randomY *= 3
-                
-                    print("rgravity: \(randomX)x\(randomY)")
-                    self.physicsBody?.velocity = CGVectorMake(randomX, randomY)
-                } else {
-                    var x = -gravity.dx
-                    x *= factor
-                    var y = -gravity.dy
-                    y *= factor
-                    
-                    print("gravity: \(x)x\(y)")
-                    self.physicsBody?.velocity = CGVectorMake(x, y)
-                }
-                
-            }
+            applyInertia()
         case .TapDrag:
             
             let hoverAction = SKAction.scaleTo(ZHBBNodeDragScale, duration: 0.2)
@@ -393,10 +364,51 @@ class ZHBBNode: SKSpriteNode {
         }
     }
     
+    func applyInertia() {
+        if let gravity = self.scene?.physicsWorld.gravity {
+            
+            SKAction.playSoundFileNamed(ZHBBNodeSound.Pew.rawValue, waitForCompletion: false)
+            
+            let factor = CGFloat(1000)
+            
+            if -gravity.dx < 1.0 && -gravity.dy < 1.0 {
+                
+                // make a random vector of some strength
+                var randomX = CGFloat(Float(arc4random()) / Float(UINT32_MAX)) // 0.0 - 1.0
+                randomX -= 0.5  // -0.5 - 0.5
+                randomX *= 2    // -1.0 - 1.0
+                randomX *= factor
+                randomX *= 2
+                
+                var randomY = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
+                randomY -= 0.5
+                randomY *= 2
+                randomY *= factor
+                randomY *= 2
+                
+                print("rgravity: \(randomX)x\(randomY)")
+                self.physicsBody?.velocity = CGVectorMake(randomX, randomY)
+            } else {
+                var x = -gravity.dx
+                x *= factor
+                var y = -gravity.dy
+                y *= factor
+                
+                print("gravity: \(x)x\(y)")
+                self.physicsBody?.velocity = CGVectorMake(x, y)
+            }
+            
+        }
+    }
+    
+    
+    
     func remove(completion:(Void)->Void) {
         let path = NSBundle.mainBundle().pathForResource("ZHMagic", ofType: "sks")
         if let emitter = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as? SKNode {
             emitter.position = self.position
+            emitter.physicsBody?.affectedByGravity = true
+            emitter.physicsBody?.dynamic = true
             self.parent?.addChild(emitter)
             
             let emitterFadeAction = SKAction.fadeAlphaTo(0.0, duration: 0.5)
