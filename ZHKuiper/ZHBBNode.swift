@@ -8,8 +8,8 @@
 
 import SpriteKit
 
-let ZHBBNodeFullScale = CGFloat(2.0)
-let ZHBBNodeDragScale = CGFloat(3.0)
+let ZHBBNodeFullScale = CGFloat(1.0)
+let ZHBBNodeDragScale = CGFloat(1.5)
 let ZHBBNodeSpawnScale = CGFloat(0.05)
 
 enum ZHBBNodeColor: UInt {
@@ -275,6 +275,7 @@ enum ZHBBNodeColor: UInt {
 enum ZHBBNodeBehavior: UInt {
     case TapMomentum = 0
     case TapDrag = 1
+    case TapRemove = 2
 }
 
 enum ZHBBNodeSound: String {
@@ -283,8 +284,13 @@ enum ZHBBNodeSound: String {
     case Laser = "laser.wav"
 }
 
+enum ZHBBNodeRemoveType: String {
+    case Grow = "grow"
+    case Shrink = "shrink"
+}
+
 class ZHBBNode: SKSpriteNode {
-    let behavior = ZHBBNodeBehavior.TapMomentum
+    let behavior = ZHBBNodeBehavior.TapRemove
     var seconds = UInt(20)
     var previousPoint = CGPointZero
     
@@ -309,9 +315,19 @@ class ZHBBNode: SKSpriteNode {
         self.physicsBody?.affectedByGravity = true
         self.physicsBody?.contactTestBitMask = nodeColor.contactBitMask
         
-        let soundAction = SKAction.playSoundFileNamed(ZHBBNodeSound.Drip.rawValue, waitForCompletion: false)
-        self.runAction(soundAction)
+        playSound(.Drip)
+        
+        var random = arc4random_uniform(UInt32(1000)) // 0 to 999
+        random /= 10 // 0 to 99.99
+        let delay = NSTimeInterval(10 + random)
+        NSTimer.scheduledTimerWithTimeInterval(delay, block: { () -> Void in
+            self.remove(.Shrink, completion: { () -> Void in
+
+            })
+            }, repeats: true)
     }
+    
+    
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         switch behavior {
@@ -326,7 +342,13 @@ class ZHBBNode: SKSpriteNode {
             
             physicsBody?.dynamic = false
             updatePosition(touches, withEvent: event)
+        case .TapRemove:
+            remove(.Grow, completion: { () -> Void in
+            })
         }
+        
+        
+        
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -335,6 +357,8 @@ class ZHBBNode: SKSpriteNode {
             return
         case .TapDrag:
             updatePosition(touches, withEvent: event)
+        case .TapRemove:
+            return
         }
     }
     
@@ -350,7 +374,8 @@ class ZHBBNode: SKSpriteNode {
             let alphaAction = SKAction.fadeAlphaTo(1.0, duration: 0.2)
             let action = SKAction.group([hoverAction, alphaAction])
             self.runAction(action)
-
+        case .TapRemove:
+            return
         }
 
     }
@@ -367,7 +392,7 @@ class ZHBBNode: SKSpriteNode {
     func applyInertia() {
         if let gravity = self.scene?.physicsWorld.gravity {
             
-            SKAction.playSoundFileNamed(ZHBBNodeSound.Pew.rawValue, waitForCompletion: false)
+            playSound(.Laser)
             
             let factor = CGFloat(1000)
             
@@ -403,7 +428,7 @@ class ZHBBNode: SKSpriteNode {
     
     
     
-    func remove(completion:(Void)->Void) {
+    func remove(type: ZHBBNodeRemoveType, completion:(Void)->Void) {
         let path = NSBundle.mainBundle().pathForResource("ZHMagic", ofType: "sks")
         if let emitter = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as? SKNode {
             emitter.position = self.position
@@ -419,13 +444,47 @@ class ZHBBNode: SKSpriteNode {
     
         
         //let fadeAction = SKAction.fadeAlphaTo(0.0, duration: 0.2)
-        let fadeAction = SKAction.scaleTo(0.2, duration: 0.2)
-        self.runAction(fadeAction) { () -> Void in
-            self.removeFromParent()
-            completion()
-        }
+        if behavior == .TapRemove {
+            
+            switch type {
+            case .Grow:
+                    let scale = SKAction.scaleTo(10.0, duration: 0.2)
+                    let fade = SKAction.fadeAlphaTo(0.1, duration: 0.2)
+                    let action = SKAction.group([scale, fade])
+                    self.runAction(action) { () -> Void in
+                        self.removeFromParent()
+                        completion()
+                    }
+                    
+                    playSound(.Pew)
+                
+            case .Shrink:
+                    let scale = SKAction.scaleTo(0.1, duration: 0.2)
+                    let fade = SKAction.fadeAlphaTo(0.1, duration: 0.2)
+                    let action = SKAction.group([scale, fade])
+                    self.runAction(action) { () -> Void in
+                        self.removeFromParent()
+                        completion()
+                    }
+                    
+                    playSound(.Pew)
 
-        let soundAction = SKAction.playSoundFileNamed("pew.wav", waitForCompletion: false)
+            }
+            
+        } else {
+            let fadeAction = SKAction.scaleTo(0.2, duration: 0.2)
+            self.runAction(fadeAction) { () -> Void in
+                self.removeFromParent()
+                completion()
+            }
+            
+            playSound(.Pew)
+        }
+    }
+    
+    func playSound(sound: ZHBBNodeSound) {
+        let soundAction = SKAction.playSoundFileNamed(sound.rawValue, waitForCompletion: true)
         self.runAction(soundAction)
+//        SKTAudio.sharedInstance().playSoundEffect(sound.rawValue)
     }
 }
