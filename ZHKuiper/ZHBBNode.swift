@@ -318,7 +318,7 @@ class ZHBBNode: SKSpriteNode {
         playSound(.Drip)
         
         var random = arc4random_uniform(UInt32(1000)) // 0 to 999
-        random /= 10 // 0 to 99.99
+        random /= 16 // 0 to 99.99
         let delay = NSTimeInterval(10 + random)
         NSTimer.scheduledTimerWithTimeInterval(delay, block: { () -> Void in
             self.remove(.Shrink, completion: { () -> Void in
