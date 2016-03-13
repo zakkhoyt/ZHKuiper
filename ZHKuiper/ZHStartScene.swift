@@ -8,25 +8,25 @@
 
 import UIKit
 
-//let ZHGameSceneMaxDemoCount = UInt(5)
 
 class ZHStartScene: ZHGameScene {
 
     
     // MARK: Public methods
     
-    var skipHandler:((Void)->Void)!
+    var startHandler:((Void)->Void)!
     
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
         showLabels()
+        
     }
     
     // MARK: Override methods
     
     override init(size: CGSize) {
         super.init(size: size)
-        backgroundColor = UIColor.lightGrayColor()
+        backgroundColor = UIColor.darkGrayColor()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,44 +34,78 @@ class ZHStartScene: ZHGameScene {
     }
 
     
-    internal override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        skip()
+//    internal override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        start()
+//    }
+    
+    private func start() {
+        if startHandler != nil {
+            startHandler()
+        }
     }
     
-    internal override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        skip()
+    private func showTitleNode(name: String) {
+        if let titleNode = self.childNodeWithName(name) {
+            let fadeInAction = SKAction.fadeAlphaTo(1.0, duration: 0.3)
+            titleNode.runAction(fadeInAction)
+        }
     }
     
-    internal override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        skip()
-    }
-
-    private func skip() {
-        if skipHandler != nil {
-            skipHandler()
+    private func hideTitleNode(name: String) {
+        if let titleNode = self.childNodeWithName(name) {
+            let fadeOutAction = SKAction.fadeAlphaTo(0.0, duration: 0.3)
+            titleNode.runAction(fadeOutAction)
         }
     }
     
     private func showLabels() {
         
+        // Title label
+        let titleNode = NORLabelNode(fontNamed:"Chalkduster")
+        titleNode.name = "titleNode"
+        titleNode.text = "Kuiper\nShapes"
+        titleNode.fontSize = 44
+        titleNode.horizontalAlignmentMode = .Center
+        titleNode.verticalAlignmentMode = .Center
+        titleNode.position = CGPoint(x:CGRectGetMidX(self.frame), y:self.frame.size.height - 100)
+        self.addChild(titleNode)
+
+        
+        
+        
+        // Buttons
+        let midX = CGRectGetMidX(self.frame)
+        
+        let demoButtonPoint = CGPoint(x: midX, y: 110)
+        let demoButton = ZHButtonNode.button("Demo", point: demoButtonPoint) { () -> Void in
+            self.demo()
+        }
+        self.addChild(demoButton)
+
+        let optionsButtonPoint = CGPoint(x: midX, y: 70)
+        let optionsButton = ZHButtonNode.button("Options", point: optionsButtonPoint) { () -> Void in
+
+        }
+        self.addChild(optionsButton)
+
+        let startButtonPoint = CGPoint(x: midX, y: 40)
+        let startButton = ZHButtonNode.button("Start", point: startButtonPoint) { () -> Void in
+            self.start()
+        }
+        self.addChild(startButton)
+
+
+    }
+    
+    private func demo() {
+        
+        hideTitleNode("titleNode")
+        hideTitleNode("Demo")
         
         let textInterval = NSTimeInterval(2.0)
         let taskInterval = NSTimeInterval(3.0)
         let totalInterval = textInterval + taskInterval
-        
-        let skipLabelNode = NORLabelNode(fontNamed:"Chalkduster")
-        skipLabelNode.text = "Tap anwhere to skip"
-        skipLabelNode.fontSize = 14
-        skipLabelNode.horizontalAlignmentMode = .Center
-        skipLabelNode.verticalAlignmentMode = .Center
-        skipLabelNode.position = CGPoint(x:CGRectGetMidX(self.frame), y:76)
-//        skipLabelNode.alpha = 1
-        self.addChild(skipLabelNode)
-        
-        
-        
-        
-        
+    
         delay(0 * totalInterval) { () -> Void in
             self.addLabelNode("Tap & drag to\nspawn shapes", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
                 self.demonstrateTaps()
@@ -106,34 +140,10 @@ class ZHStartScene: ZHGameScene {
         delay(4 * totalInterval) { () -> Void in
             self.addLabelNode("Have fun!", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
                 }) { () -> Void in
+                    self.showTitleNode("titleNode")
+                    self.showTitleNode("Demo")
             }
         }
-//        
-//        addLabelNode("Tap & drag to\nspawn shapes", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
-//            //            self.addCancelDemoNode()
-//            self.demonstrateTaps()
-//            }) { () -> Void in
-//                self.addLabelNode("Use gravity by\ntilting the device", textInterval: textInterval, taskInterval: 6.0, taskBlock: { () -> Void in
-//                    //                    self.removeCancelDemoNode()
-//                    self.demonstrateGravity()
-//                    }) { () -> Void in
-//                        //                        self.addLabelNode("When matching shapes\ntouch they disappear", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
-//                        //                            self.demonstrateCollision()
-//                        //                            }) { () -> Void in
-//                        self.addLabelNode("Tap shapes to\nto make them pop", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
-//                            self.demonstrateEnertia()
-//                            }) { () -> Void in
-//                                self.addLabelNode("Double tap with\ntwo fingers to clear\nthe screen", textInterval: textInterval, taskInterval: 0, taskBlock: { () -> Void in
-//                                    super.clear()
-//                                    }) { () -> Void in
-//                                        self.addLabelNode("Have fun!", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
-//                                            }) { () -> Void in
-//                                        }
-//                                }
-//                        }
-//                        //                        }
-//                }
-//        }
         
     }
     

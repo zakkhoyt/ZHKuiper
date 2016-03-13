@@ -17,9 +17,6 @@ let kMaxBBCount = 150
 
 class ZHGameScene: SKScene {
     
-    
-    
-    
     var motion = CMMotionManager()
     private var blockNode: SKShapeNode? = nil
     private var point1: CGPoint = CGPointZero
@@ -33,7 +30,6 @@ class ZHGameScene: SKScene {
     
     // MARK: Public methods
     
-
     func tap(sender: UITapGestureRecognizer) {
         clear()
     }

@@ -19,10 +19,10 @@ class ZHGameViewController: UIViewController {
         
         let startScene = ZHStartScene(size: view.bounds.size)
         startScene.scaleMode = .ResizeFill
-        startScene.skipHandler = {
+        startScene.startHandler = {
             let gameScene = ZHGameScene(size: self.view.bounds.size)
             gameScene.scaleMode = .ResizeFill
-            let transition = SKTransition.doorsOpenHorizontalWithDuration(1.0)
+            let transition = SKTransition.doorwayWithDuration(1.0)
             skView.presentScene(gameScene, transition: transition)
         }
         
