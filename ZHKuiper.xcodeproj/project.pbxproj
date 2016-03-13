@@ -25,6 +25,10 @@
 		C67BACDB1C3749E50049B4B4 /* ZHShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BACDA1C3749E50049B4B4 /* ZHShapeNode.swift */; };
 		C6C4978F1C94FFC200358D39 /* ZHStartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C4978E1C94FFC200358D39 /* ZHStartScene.swift */; };
 		C6C497951C9502B300358D39 /* ZHPlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C497941C9502B300358D39 /* ZHPlayScene.swift */; };
+		C6C497971C952D5700358D39 /* ZHShapeNodeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C497961C952D5700358D39 /* ZHShapeNodeColor.swift */; };
+		C6C497991C952D7700358D39 /* ZHShapeNodeBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C497981C952D7700358D39 /* ZHShapeNodeBehavior.swift */; };
+		C6C4979B1C952D8800358D39 /* ZHShapeNodeSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C4979A1C952D8800358D39 /* ZHShapeNodeSound.swift */; };
+		C6C4979D1C952D9900358D39 /* ZHShapeNodeRemoveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C4979C1C952D9900358D39 /* ZHShapeNodeRemoveType.swift */; };
 		C6F91A4C1C40DAF500483FAD /* ZHMagic.sks in Resources */ = {isa = PBXBuildFile; fileRef = C6F91A4A1C40DAF500483FAD /* ZHMagic.sks */; };
 		C6F91A4D1C40DAF500483FAD /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F91A4B1C40DAF500483FAD /* spark.png */; };
 		C6F91A8E1C41BF2400483FAD /* NORLabelNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F91A8D1C41BF2400483FAD /* NORLabelNode.m */; };
@@ -76,6 +80,10 @@
 		C67BACDA1C3749E50049B4B4 /* ZHShapeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHShapeNode.swift; sourceTree = "<group>"; };
 		C6C4978E1C94FFC200358D39 /* ZHStartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHStartScene.swift; sourceTree = "<group>"; };
 		C6C497941C9502B300358D39 /* ZHPlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHPlayScene.swift; sourceTree = "<group>"; };
+		C6C497961C952D5700358D39 /* ZHShapeNodeColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHShapeNodeColor.swift; sourceTree = "<group>"; };
+		C6C497981C952D7700358D39 /* ZHShapeNodeBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHShapeNodeBehavior.swift; sourceTree = "<group>"; };
+		C6C4979A1C952D8800358D39 /* ZHShapeNodeSound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHShapeNodeSound.swift; sourceTree = "<group>"; };
+		C6C4979C1C952D9900358D39 /* ZHShapeNodeRemoveType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHShapeNodeRemoveType.swift; sourceTree = "<group>"; };
 		C6F91A4A1C40DAF500483FAD /* ZHMagic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ZHMagic.sks; sourceTree = "<group>"; };
 		C6F91A4B1C40DAF500483FAD /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		C6F91A8C1C41BF2400483FAD /* NORLabelNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NORLabelNode.h; sourceTree = "<group>"; };
@@ -237,6 +245,10 @@
 			children = (
 				C6520F041C43191C00A8BD7D /* MultiLine Label */,
 				C67BACDA1C3749E50049B4B4 /* ZHShapeNode.swift */,
+				C6C497961C952D5700358D39 /* ZHShapeNodeColor.swift */,
+				C6C497981C952D7700358D39 /* ZHShapeNodeBehavior.swift */,
+				C6C4979A1C952D8800358D39 /* ZHShapeNodeSound.swift */,
+				C6C4979C1C952D9900358D39 /* ZHShapeNodeRemoveType.swift */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -398,13 +410,17 @@
 			files = (
 				C67BACA61C373AE70049B4B4 /* ZHGameScene.swift in Sources */,
 				C6C497951C9502B300358D39 /* ZHPlayScene.swift in Sources */,
+				C6C4979D1C952D9900358D39 /* ZHShapeNodeRemoveType.swift in Sources */,
 				C67BACD81C373F770049B4B4 /* UIColor+ZH.m in Sources */,
+				C6C497991C952D7700358D39 /* ZHShapeNodeBehavior.swift in Sources */,
 				C6F91A901C41C52F00483FAD /* ZHUtilities.swift in Sources */,
 				C6044FE61C842461006502AE /* SKTAudio.swift in Sources */,
 				C67BACA81C373AE70049B4B4 /* ZHGameViewController.swift in Sources */,
 				C67BACDB1C3749E50049B4B4 /* ZHShapeNode.swift in Sources */,
 				C67BACD91C373F770049B4B4 /* NSTimer+Blocks.m in Sources */,
 				C6C4978F1C94FFC200358D39 /* ZHStartScene.swift in Sources */,
+				C6C497971C952D5700358D39 /* ZHShapeNodeColor.swift in Sources */,
+				C6C4979B1C952D8800358D39 /* ZHShapeNodeSound.swift in Sources */,
 				C67BACA21C373AE70049B4B4 /* AppDelegate.swift in Sources */,
 				C6F91A8E1C41BF2400483FAD /* NORLabelNode.m in Sources */,
 			);
