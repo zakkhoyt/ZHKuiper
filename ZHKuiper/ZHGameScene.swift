@@ -13,35 +13,41 @@ import CoreMotion
 let kMaxBBCount = 150
 
 
-let ZHGameSceneMaxDemoCount = UInt(5)
+
 
 class ZHGameScene: SKScene {
     
+    
+    
+    
     var motion = CMMotionManager()
-    var blockNode: SKShapeNode? = nil
-    var point1: CGPoint = CGPointZero
-    var point2: CGPoint = CGPointZero
-    var ref = CGPathCreateMutable()
-    var matchCounter: UInt = 0
-    var startTime = NSDate()
-    var masterBB: ZHBBNode? = nil
+    private var blockNode: SKShapeNode? = nil
+    private var point1: CGPoint = CGPointZero
+    private var point2: CGPoint = CGPointZero
+    private var ref = CGPathCreateMutable()
+    private var matchCounter: UInt = 0
+    private var startTime = NSDate()
+    private var masterBB: ZHShapeNode? = nil
     
-    override func didMoveToView(view: SKView) {
-        
-        setupGestures()
-        setupGravity()
-        showLabels()
+    
+    
+    // MARK: Public methods
+    
+
+    func tap(sender: UITapGestureRecognizer) {
+        clear()
     }
+
     
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-    }
-    
-    func setupGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: "tap:")
-        tapGesture.numberOfTapsRequired = 2
-        tapGesture.numberOfTouchesRequired = 2
-        self.view?.addGestureRecognizer(tapGesture)
+    func clear() {
+        for node in self.children {
+            if node.name == "bb" {
+                if let bb = node as? ZHShapeNode {
+                    bb.remove(.Shrink, completion: { () -> Void in
+                    })
+                }
+            }
+        }
     }
     
     func setupGravity() {
@@ -72,90 +78,79 @@ class ZHGameScene: SKScene {
         }
     }
     
-    func showLabels() {
+    func addBBAtPoint(point: CGPoint, scale: CGFloat) {
         
-        
-        
-        
-        
-        let textInterval = NSTimeInterval(2.0)
-        let taskInterval = NSTimeInterval(3.0)
-        
-        //        self.addLabelNode("Have fun!", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
-        //            }) { () -> Void in
-        //        }
-        //        return
-        
-        
-        
-        if let demoCount = NSUserDefaults.standardUserDefaults().objectForKey("demoCount") as? UInt {
-            // Only show demo so many times
-            if demoCount >= ZHGameSceneMaxDemoCount {
-                print("Max demo count reached")
-                
-                self.addLabelNode("Have fun!", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
-                    }) { () -> Void in
-                }
-                return
-            }
-            let newDemoCount = demoCount + 1
-            NSUserDefaults.standardUserDefaults().setObject(newDemoCount, forKey: "demoCount")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            
-        } else {
-            // Create user default if it doesn't exist
-            NSUserDefaults.standardUserDefaults().setObject(UInt(0), forKey: "demoCount")
-            NSUserDefaults.standardUserDefaults().synchronize()
-        }
-        
-        
-        addLabelNode("Tap & drag to\nspawn shapes", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
-            //            self.addCancelDemoNode()
-            self.demonstrateTaps()
-            }) { () -> Void in
-                self.addLabelNode("Use gravity by\ntilting the device", textInterval: textInterval, taskInterval: 6.0, taskBlock: { () -> Void in
-                    //                    self.removeCancelDemoNode()
-                    self.demonstrateGravity()
-                    }) { () -> Void in
-                        //                        self.addLabelNode("When matching shapes\ntouch they disappear", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
-                        //                            self.demonstrateCollision()
-                        //                            }) { () -> Void in
-                        self.addLabelNode("Tap shapes to\nto make them pop", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
-                            self.demonstrateEnertia()
-                            }) { () -> Void in
-                                self.addLabelNode("Double tap with\ntwo fingers to clear\nthe screen", textInterval: textInterval, taskInterval: 0, taskBlock: { () -> Void in
-                                    self.clear()
-                                    }) { () -> Void in
-                                        self.addLabelNode("Have fun!", textInterval: textInterval, taskInterval: taskInterval, taskBlock: { () -> Void in
-                                            }) { () -> Void in
-                                        }
-                                }
-                        }
-                        //                        }
-                }
-        }
-        
-    }
-    
-    func clear() {
+        var counter = 0
         for node in self.children {
             if node.name == "bb" {
-                if let bb = node as? ZHBBNode {
-                    bb.remove(.Shrink, completion: { () -> Void in
-                    })
-                }
+                counter++
+            }
+            if counter > kMaxBBCount {
+                return
             }
         }
+        
+        let sprite = ZHShapeNode(nodeColor: ZHShapeNodeColor.randomColor, point: point);
+        sprite.xScale = ZHShapeNodeSpawnScale
+        sprite.yScale = ZHShapeNodeSpawnScale
+        
+        // Random rotation
+        var randomZ = CGFloat(Float(arc4random()) / Float(UINT32_MAX)) // 0.0 - 1.0
+        randomZ -= 0.5  // -0.5 - 0.5
+        randomZ *= 2    // -1.0 - 1.0
+        randomZ *= CGFloat(M_PI)
+        sprite.zRotation = randomZ
+        
+        let growAction = SKAction.scaleTo(ZHShapeNodeFullScale * scale, duration: 0.2)
+        self.addChild(sprite)
+        sprite.runAction(growAction)
     }
     
-    func demoRunning() -> Bool {
+    // MARK: Override methods
+    override init(size: CGSize) {
+        super.init(size: size)
+        backgroundColor = UIColor.blackColor()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func didMoveToView(view: SKView) {
+        super.didMoveToView(view)
+        setupGestures()
+        setupGravity()
+//        showLabels()
+    }
+    
+    
+    override func update(currentTime: CFTimeInterval) {
+        /* Called before each frame is rendered */
+    }
+    
+    
+        // MARK: Private methods
+    
+    
+    private func setupGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: "tap:")
+        tapGesture.numberOfTapsRequired = 2
+        tapGesture.numberOfTouchesRequired = 2
+        self.view?.addGestureRecognizer(tapGesture)
+    }
+    
+
+    
+    
+    
+    private func demoRunning() -> Bool {
         if let _ = childNodeWithName("cancelNode") {
             return true
         }
         return false
     }
     
-    func addCancelDemoNode() {
+    private func addCancelDemoNode() {
         let labelNode = NORLabelNode(fontNamed:"Chalkduster")
         labelNode.name = "cancelNode"
         labelNode.text = "Tap anywhere to skip demo"
@@ -172,7 +167,7 @@ class ZHGameScene: SKScene {
         
     }
     
-    func removeCancelDemoNode() {
+    private func removeCancelDemoNode() {
         if let node = childNodeWithName("cancelNode") {
             let fadeOutAction = SKAction.fadeAlphaTo(0, duration: 0.3)
             node.runAction(fadeOutAction, completion: { () -> Void in
@@ -181,209 +176,20 @@ class ZHGameScene: SKScene {
         }
     }
     
-    func addLabelNode(text: String, textInterval: NSTimeInterval, taskInterval: NSTimeInterval, taskBlock: (Void)->Void, completion: (Void)->Void) {
-        let labelNode = NORLabelNode(fontNamed:"Chalkduster")
-        labelNode.text = text
-        labelNode.fontSize = 20
-        labelNode.horizontalAlignmentMode = .Center
-        labelNode.verticalAlignmentMode = .Center
-        labelNode.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        labelNode.alpha = 0
-        self.addChild(labelNode)
-        
-        let fadeInAction = SKAction.fadeAlphaTo(1.0, duration: 0.5)
-        labelNode.runAction(fadeInAction) { () -> Void in
-            
-            delay(textInterval, completion: { () -> Void in
-                let fadeAction = SKAction.fadeAlphaTo(0.0, duration: 0.5)
-                labelNode.runAction(fadeAction, completion: { () -> Void in
-                    labelNode.removeFromParent()
-                    
-                    taskBlock()
-                    
-                    delay(taskInterval, completion: { () -> Void in
-                        completion()
-                    })
-                })
-            })
-        }
-    }
     
-    func demonstrateCollision() {
-        
-        demoCollision()
-        delay(1.0) { () -> Void in
-            self.demoCollision()
-            delay(1.0) { () -> Void in
-                self.demoCollision()
-            }
-        }
-    }
-    
-    func demoCollision() {
-        let color = ZHBBNodeColor.randomColor
-        
-        let pointA = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        let bbA = ZHBBNode(nodeColor: color, point: pointA);
-        bbA.physicsBody?.affectedByGravity = false
-        bbA.xScale = ZHBBNodeSpawnScale*2
-        bbA.yScale = ZHBBNodeSpawnScale*2
-        let growAction = SKAction.scaleTo(ZHBBNodeFullScale, duration: 0.2)
-        self.addChild(bbA)
-        bbA.runAction(growAction)
-        
-        let randomX = arc4random_uniform(UInt32(self.frame.size.width))
-        let randomY = arc4random_uniform(UInt32(self.frame.size.height))
-        let pointB = CGPoint(x: CGFloat(randomX), y: CGFloat(randomY))
-        let bbB = ZHBBNode(nodeColor: color, point: pointB);
-        bbB.physicsBody?.affectedByGravity = false
-        bbB.xScale = ZHBBNodeSpawnScale*2
-        bbB.yScale = ZHBBNodeSpawnScale*2
-        self.addChild(bbB)
-        bbB.runAction(growAction)
-        
-        let moveAction = SKAction.moveTo(pointA, duration: 0.8)
-        bbB.runAction(moveAction)
-        
-    }
-    
-    func demonstrateEnertia() {
-        
-        
-        demoEnertia()
-        delay(1.0) { () -> Void in
-            self.demoEnertia()
-            delay(1.0) { () -> Void in
-                self.demoEnertia()
-                delay(1.0) { () -> Void in
-                    self.demoEnertia()
-                }
-            }
-        }
-    }
-    
-    func demoEnertia() {
-        let tapScale = CGFloat(2.0)
-        let handNode = SKSpriteNode(imageNamed: "hand")
-        handNode.zRotation = CGFloat(M_PI_2)
-        handNode.alpha = 0
-        handNode.zRotation = CGFloat(M_PI + M_PI)
-        self.addChild(handNode)
-        handNode.xScale = tapScale
-        handNode.yScale = tapScale
-        
-        
-        let random = arc4random_uniform(UInt32(self.children.count))
-        if let bb = self.children[Int(random)] as? ZHBBNode {
-            let fadeInAction = SKAction.fadeAlphaTo(1.0, duration: 0.2)
-            let sizeAction = SKAction.scaleTo(1.0, duration: 0.2)
-            let action = SKAction.group([fadeInAction, sizeAction])
-            handNode.position = bb.position
-            handNode.runAction(action, completion: { () -> Void in
-                let fadeOutAction = SKAction.fadeAlphaTo(0.0, duration: 0.2)
-                let scaleUpAction = SKAction.scaleTo(tapScale, duration: 0.2)
-                let action = SKAction.group([fadeOutAction, scaleUpAction])
-                handNode.runAction(action, completion: { () -> Void in
-                    handNode.removeFromParent()
-                })
-                //                bb.applyInertia()
-                bb.remove(.Grow, completion: { () -> Void in
-                    
-                })
-            })
-        }
-    }
-    
-    func demonstrateGravity() {
-        
-        motion.stopDeviceMotionUpdates()
-        
-        delay(0.2) { () -> Void in
-            let interval = NSTimeInterval(3.0)
-            
-            // Add arrow and apply gravity in that direction
-            let arrowNode = SKSpriteNode(imageNamed: "arrow")
-            arrowNode.zRotation = CGFloat(M_PI_2)
-            arrowNode.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-            arrowNode.alpha = 0
-            arrowNode.zPosition = 0
-            self.addChild(arrowNode)
-            let fadeInAction = SKAction.fadeAlphaTo(1.0, duration: 0.3)
-            arrowNode.runAction(fadeInAction)
-            self.physicsWorld.gravity = CGVectorMake(0.0, 1.0)
-            
-            delay(interval) { () -> Void in
-                
-                let rotateAction = SKAction.rotateByAngle(CGFloat(-M_PI_2), duration: 0.3)
-                arrowNode.runAction(rotateAction)
-                
-                self.physicsWorld.gravity = CGVectorMake(1.0, 0.0)
-                
-                delay(interval, completion: { () -> Void in
-                    self.setupGravity()
-                    arrowNode.removeFromParent()
-                })
-            }
-        }
-    }
-    
-    func demonstrateTaps() {
-        
-        
-        let handNode = SKSpriteNode(imageNamed: "hand")
-        handNode.zRotation = CGFloat(M_PI_2)
-        
-        var startX = CGRectGetMidX(self.frame)
-        startX -= self.frame.size.width / 4.0
-        var startY = CGRectGetMidY(self.frame)
-        startY -= self.frame.size.height / 4.0
-        let startPoint = CGPoint(x: startX, y: startY)
-        startX += self.frame.size.width / 2.0
-        startY += self.frame.size.height / 2.0
-        let endPoint = CGPoint(x: startX, y: startY)
-        
-        handNode.position = startPoint
-        handNode.alpha = 0
-        handNode.zRotation = CGFloat(M_PI + M_PI)
-        self.addChild(handNode)
-        let fadeInAction = SKAction.fadeAlphaTo(1.0, duration: 0.3)
-        handNode.runAction(fadeInAction) { () -> Void in
-            let moveAction = SKAction.moveTo(endPoint, duration: 2.0)
-            handNode.runAction(moveAction) { () -> Void in
-                
-            }
-            
-            // Run for 2 seconds
-            self.addBBAtPoint(handNode.position)
-            
-            for x in 0..<20 {
-                delay(NSTimeInterval(x) * 0.1, completion: { () -> Void in
-                    self.addBBAtPoint(handNode.position)
-                })
-            }
-            
-            delay(2.0) { () -> Void in
-                let fadeAction = SKAction.fadeAlphaTo(0.0, duration: 0.3)
-                handNode.runAction(fadeAction, completion: { () -> Void in
-                    handNode.removeFromParent()
-                })
-            }
-        }
-    }
-    
-    func addNodesByTimer() {
+    private func addNodesByTimer() {
         
         NSTimer.scheduledTimerWithTimeInterval(0.25, block: { () -> Void in
             
             let randomX = arc4random_uniform(UInt32(self.frame.size.width))
             let randomY = arc4random_uniform(UInt32(self.frame.size.height))
-            self.addBBAtPoint(CGPoint(x: CGFloat(randomX), y: CGFloat(randomY)))
+            self.addBBAtPoint(CGPoint(x: CGFloat(randomX), y: CGFloat(randomY)), scale: 1.0)
             }, repeats: true)
         
     }
     
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    internal override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         removeCancelDemoNode()
         
@@ -395,29 +201,39 @@ class ZHGameScene: SKScene {
         
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    internal override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         touch(touches, withEvent: event)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    internal override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         touch(touches, withEvent: event)
     }
     
-    func touch(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    private func touch(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
             let point = touch.locationInNode(self)
-            addBBAtPoint(point)
+            var force = CGFloat(1.0)
+            if #available(iOS 9.0, *) {
+                if touch.force > 0.01 && touch.maximumPossibleForce > 0.01 {
+                    force = touch.force / touch.maximumPossibleForce
+                    force += 0.5
+                }
+            } else {
+                
+            }
+            print("force: \(force)")
+            addBBAtPoint(point, scale: force)
         }
     }
+
     
-    
-    func addMasterBB() {
+    private func addMasterBB() {
         if let _ = masterBB {
             return
         }
         
         let point = CGPointMake(self.frame.size.width / 2.0, self.frame.size.height - 120)
-        masterBB = ZHBBNode(nodeColor: ZHBBNodeColor.randomColor, point: point)
+        masterBB = ZHShapeNode(nodeColor: ZHShapeNodeColor.randomColor, point: point)
         if let masterBB = masterBB {
             masterBB.userInteractionEnabled = false
             masterBB.physicsBody?.dynamic = false
@@ -428,37 +244,8 @@ class ZHGameScene: SKScene {
         }
     }
     
-    func addBBAtPoint(point: CGPoint) {
-        
-        var counter = 0
-        for node in self.children {
-            if node.name == "bb" {
-                counter++
-            }
-            if counter > kMaxBBCount {
-                return
-            }
-        }
-        
-        let sprite = ZHBBNode(nodeColor: ZHBBNodeColor.randomColor, point: point);
-        sprite.xScale = ZHBBNodeSpawnScale
-        sprite.yScale = ZHBBNodeSpawnScale
-        
-        // Random rotation
-        var randomZ = CGFloat(Float(arc4random()) / Float(UINT32_MAX)) // 0.0 - 1.0
-        randomZ -= 0.5  // -0.5 - 0.5
-        randomZ *= 2    // -1.0 - 1.0
-        randomZ *= CGFloat(M_PI)
-        sprite.zRotation = randomZ
-        
-        let growAction = SKAction.scaleTo(ZHBBNodeFullScale, duration: 0.2)
-        self.addChild(sprite)
-        sprite.runAction(growAction)
-    }
+
     
-    func tap(sender: UITapGestureRecognizer) {
-        clear()
-    }
 }
 
 
@@ -466,8 +253,8 @@ extension ZHGameScene: SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         if contact.bodyA.contactTestBitMask == contact.bodyB.contactTestBitMask {
-            let bodyA = contact.bodyA.node as! ZHBBNode
-            let bodyB = contact.bodyB.node as! ZHBBNode
+            let bodyA = contact.bodyA.node as! ZHShapeNode
+            let bodyB = contact.bodyB.node as! ZHShapeNode
             if bodyA.physicsBody!.contactTestBitMask == bodyB.physicsBody!.contactTestBitMask {
                 //                bodyA.remove({ () -> Void in
                 //                    

@@ -1,5 +1,5 @@
 //
-//  ZHBBNode.swift
+//  ZHShapeNode.swift
 //  ZHKuiper
 //
 //  Created by Zakk Hoyt on 1/1/16.
@@ -8,11 +8,11 @@
 
 import SpriteKit
 
-let ZHBBNodeFullScale = CGFloat(1.0)
-let ZHBBNodeDragScale = CGFloat(1.5)
-let ZHBBNodeSpawnScale = CGFloat(0.05)
+let ZHShapeNodeFullScale = CGFloat(1.0)
+let ZHShapeNodeDragScale = CGFloat(1.5)
+let ZHShapeNodeSpawnScale = CGFloat(0.05)
 
-enum ZHBBNodeColor: UInt {
+enum ZHShapeNodeColor: UInt {
     case Black = 0
     case Blue = 1
     case Brown = 2
@@ -48,9 +48,9 @@ enum ZHBBNodeColor: UInt {
     case YellowStar = 32
 
     
-    static var randomColor: ZHBBNodeColor {
+    static var randomColor: ZHShapeNodeColor {
         let random = arc4random_uniform(32)
-        var color = ZHBBNodeColor.White
+        var color = ZHShapeNodeColor.White
         switch random {
         case 0:
             color = .Black
@@ -272,41 +272,41 @@ enum ZHBBNodeColor: UInt {
     }
 }
 
-enum ZHBBNodeBehavior: UInt {
+enum ZHShapeNodeBehavior: UInt {
     case TapMomentum = 0
     case TapDrag = 1
     case TapRemove = 2
 }
 
-enum ZHBBNodeSound: String {
+enum ZHShapeNodeSound: String {
     case Pew = "pew.wav"
     case Drip = "drip.wav"
     case Laser = "laser.wav"
 }
 
-enum ZHBBNodeRemoveType: String {
+enum ZHShapeNodeRemoveType: String {
     case Grow = "grow"
     case Shrink = "shrink"
 }
 
-class ZHBBNode: SKSpriteNode {
-    let behavior = ZHBBNodeBehavior.TapRemove
+class ZHShapeNode: SKSpriteNode {
+    let behavior = ZHShapeNodeBehavior.TapRemove
     var seconds = UInt(20)
     var previousPoint = CGPointZero
     
-    var bbColor: ZHBBNodeColor = ZHBBNodeColor.randomColor {
+    var bbColor: ZHShapeNodeColor = ZHShapeNodeColor.randomColor {
         didSet{
             // Set image, bbcolor, collision
         }
     }
     
-    convenience init(nodeColor: ZHBBNodeColor, point: CGPoint) {
+    convenience init(nodeColor: ZHShapeNodeColor, point: CGPoint) {
         
         self.init(imageNamed: nodeColor.imageNameFromBBColor)
         self.bbColor = nodeColor
         self.userInteractionEnabled = true
-        self.xScale = ZHBBNodeFullScale
-        self.yScale = ZHBBNodeFullScale
+        self.xScale = ZHShapeNodeFullScale
+        self.yScale = ZHShapeNodeFullScale
         self.color = UIColor.greenColor()
         self.position = point
         self.name = "bb"
@@ -335,7 +335,7 @@ class ZHBBNode: SKSpriteNode {
             applyInertia()
         case .TapDrag:
             
-            let hoverAction = SKAction.scaleTo(ZHBBNodeDragScale, duration: 0.2)
+            let hoverAction = SKAction.scaleTo(ZHShapeNodeDragScale, duration: 0.2)
             let alphaAction = SKAction.fadeAlphaTo(0.7, duration: 0.2)
             let action = SKAction.group([hoverAction, alphaAction])
             self.runAction(action)
@@ -370,7 +370,7 @@ class ZHBBNode: SKSpriteNode {
             updatePosition(touches, withEvent: event)
             physicsBody?.dynamic = true
             
-            let hoverAction = SKAction.scaleTo(ZHBBNodeFullScale, duration: 0.2)
+            let hoverAction = SKAction.scaleTo(ZHShapeNodeFullScale, duration: 0.2)
             let alphaAction = SKAction.fadeAlphaTo(1.0, duration: 0.2)
             let action = SKAction.group([hoverAction, alphaAction])
             self.runAction(action)
@@ -428,7 +428,7 @@ class ZHBBNode: SKSpriteNode {
     
     
     
-    func remove(type: ZHBBNodeRemoveType, completion:(Void)->Void) {
+    func remove(type: ZHShapeNodeRemoveType, completion:(Void)->Void) {
         let path = NSBundle.mainBundle().pathForResource("ZHMagic", ofType: "sks")
         if let emitter = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as? SKNode {
             emitter.position = self.position
@@ -482,7 +482,7 @@ class ZHBBNode: SKSpriteNode {
         }
     }
     
-    func playSound(sound: ZHBBNodeSound) {
+    func playSound(sound: ZHShapeNodeSound) {
         let soundAction = SKAction.playSoundFileNamed(sound.rawValue, waitForCompletion: true)
         self.runAction(soundAction)
 //        SKTAudio.sharedInstance().playSoundEffect(sound.rawValue)
