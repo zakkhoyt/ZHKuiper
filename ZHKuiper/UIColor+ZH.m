@@ -34,15 +34,15 @@
 }
 
 +(UIColor*)zhBackgroundColor{
-    return [UIColor darkGrayColor];
+    return [UIColor clearColor];
 }
 
 +(UIColor*)zhTintColor{
-    return [UIColor yellowColor];
+    return [UIColor cyanColor];
 }
 
 +(UIColor*)zhAlternateTintColor{
-    return [UIColor cyanColor];
+    return [UIColor yellowColor];
 }
 
 

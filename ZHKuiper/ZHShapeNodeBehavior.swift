@@ -1,5 +1,5 @@
 //
-//  ZHShapeNodeBehavior.swift
+//  ZHShapeNodeTapBehavior.swift
 //  ZHKuiper
 //
 //  Created by Zakk Hoyt on 3/12/16.
@@ -8,8 +8,10 @@
 
 import Foundation
 
-enum ZHShapeNodeBehavior: UInt {
+enum ZHShapeNodeTapBehavior: UInt {
     case TapMomentum = 0
     case TapDrag = 1
     case TapRemove = 2
+    case TapTeleport = 3
+    case TapSticky = 4
 }

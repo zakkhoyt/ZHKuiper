@@ -33,7 +33,7 @@ class ZHGameScene: SKScene {
     func tap(sender: UITapGestureRecognizer) {
         clear()
     }
-
+    
     
     func clear() {
         for node in self.children {
@@ -54,19 +54,13 @@ class ZHGameScene: SKScene {
         self.physicsWorld.contactDelegate = self;
         
         if motion.deviceMotionAvailable == true {
-            
-            
-            //            var lastDate = NSDate()
-            motion.deviceMotionUpdateInterval = 0.05;
+            // No need to constantly update the gravity.
+            motion.deviceMotionUpdateInterval = NSTimeInterval(1/30.0)
             motion.startDeviceMotionUpdatesToQueue(NSOperationQueue()) { (motion: CMDeviceMotion?, error: NSError?) -> Void in
                 if let x = motion?.gravity.x, let y = motion?.gravity.y {
-                    //                    let now = NSDate()
-                    //                    if now.timeIntervalSinceDate(lastDate) > 0.05 {
-                    //                        lastDate = now
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.physicsWorld.gravity = CGVectorMake(CGFloat(5*x), CGFloat(5*y))
                     })
-                    //                    }
                 }
             }
         } else {
@@ -107,7 +101,7 @@ class ZHGameScene: SKScene {
         super.init(size: size)
         backgroundColor = UIColor.blackColor()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -116,7 +110,7 @@ class ZHGameScene: SKScene {
         super.didMoveToView(view)
         setupGestures()
         setupGravity()
-//        showLabels()
+        //        showLabels()
     }
     
     
@@ -125,7 +119,7 @@ class ZHGameScene: SKScene {
     }
     
     
-        // MARK: Private methods
+    // MARK: Private methods
     
     
     private func setupGestures() {
@@ -135,7 +129,7 @@ class ZHGameScene: SKScene {
         self.view?.addGestureRecognizer(tapGesture)
     }
     
-
+    
     
     
     
@@ -217,11 +211,11 @@ class ZHGameScene: SKScene {
             } else {
                 
             }
-            print("force: \(force)")
+            //            print("force: \(force)")
             addBBAtPoint(point, scale: force)
         }
     }
-
+    
     
     private func addMasterBB() {
         if let _ = masterBB {
@@ -240,7 +234,7 @@ class ZHGameScene: SKScene {
         }
     }
     
-
+    
     
 }
 
@@ -252,12 +246,34 @@ extension ZHGameScene: SKPhysicsContactDelegate {
             let bodyA = contact.bodyA.node as! ZHShapeNode
             let bodyB = contact.bodyB.node as! ZHShapeNode
             if bodyA.physicsBody!.contactTestBitMask == bodyB.physicsBody!.contactTestBitMask {
-                //                bodyA.remove({ () -> Void in
-                //                    
-                //                })
-                //                bodyB.remove({ () -> Void in
-                //                    
-                //                })
+                
+                switch ZHGameModel.sharedInstance.collide {
+                case .None:
+                    return
+                case .Remove:
+                    bodyA.remove(.Shrink, completion:  {
+                        
+                    })
+                    bodyB.remove(.Shrink, completion:  {
+                        
+                    })
+                case .Force:
+                    bodyA.applyInertia()
+                    bodyB.applyInertia()
+                    return
+                case .Teleport:
+                    bodyA.teleport()
+                    bodyB.remove(.Shrink, completion:  {
+                        
+                    })
+                    
+                    return
+                case .Sticky:
+                    bodyA.toggleSticky()
+                    bodyB.toggleSticky()
+                    return
+                }
+                
             }
         }
     }

@@ -27,6 +27,8 @@ class ZHStartScene: ZHGameScene {
     override init(size: CGSize) {
         super.init(size: size)
         backgroundColor = UIColor.darkGrayColor()
+        
+        setupNotificationHandlers()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,6 +39,21 @@ class ZHStartScene: ZHGameScene {
 //    internal override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 //        start()
 //    }
+    
+    
+    // MARK: Private methods
+    
+    private func setupNotificationHandlers() {
+        NSNotificationCenter.defaultCenter().addObserverForName(ZHNotificationStart, object: nil, queue: NSOperationQueue.mainQueue()) { (note) -> Void in
+            self.start()
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(ZHNotificationDemo, object: nil, queue: NSOperationQueue.mainQueue()) { (note) -> Void in
+            self.demo()
+        }
+
+    }
+    
     
     private func start() {
         if startHandler != nil {
@@ -73,26 +90,26 @@ class ZHStartScene: ZHGameScene {
         
         
         
-        // Buttons
-        let midX = CGRectGetMidX(self.frame)
-        
-        let demoButtonPoint = CGPoint(x: midX, y: 110)
-        let demoButton = ZHButtonNode.button("Demo", point: demoButtonPoint) { () -> Void in
-            self.demo()
-        }
-        self.addChild(demoButton)
-
-        let optionsButtonPoint = CGPoint(x: midX, y: 70)
-        let optionsButton = ZHButtonNode.button("Options", point: optionsButtonPoint) { () -> Void in
-
-        }
-        self.addChild(optionsButton)
-
-        let startButtonPoint = CGPoint(x: midX, y: 40)
-        let startButton = ZHButtonNode.button("Start", point: startButtonPoint) { () -> Void in
-            self.start()
-        }
-        self.addChild(startButton)
+//        // Buttons
+//        let midX = CGRectGetMidX(self.frame)
+//        
+//        let demoButtonPoint = CGPoint(x: midX, y: 110)
+//        let demoButton = ZHButtonNode.button("Demo", point: demoButtonPoint) { () -> Void in
+//            self.demo()
+//        }
+//        self.addChild(demoButton)
+//
+//        let optionsButtonPoint = CGPoint(x: midX, y: 70)
+//        let optionsButton = ZHButtonNode.button("Options", point: optionsButtonPoint) { () -> Void in
+//
+//        }
+//        self.addChild(optionsButton)
+//
+//        let startButtonPoint = CGPoint(x: midX, y: 40)
+//        let startButton = ZHButtonNode.button("Start", point: startButtonPoint) { () -> Void in
+//            self.start()
+//        }
+//        self.addChild(startButton)
 
 
     }

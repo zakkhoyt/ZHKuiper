@@ -9,11 +9,18 @@
 import UIKit
 
 class ZHGameModel: NSObject {
- 
+
+    static let sharedInstance = ZHGameModel()
+    
+    var tap = ZHShapeNodeTapBehavior.TapMomentum
+    var collide = ZHShapesCollide.Remove
+    override init() {
+        
+    }
     // Shapes (count, outline)
     
     // Node Touch (pop, force, drag)
-    // * ZHShapeNodeBehavior
+    // * ZHShapeNodeTapBehavior
     
     // Node collision (force, clear, grow/shrink, teleport, static)
     

@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        setupAppearance()
         return true
     }
 
@@ -39,6 +39,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+
+    func setupAppearance() {
+        
+        let smallFont = UIFont(name: "Chalkduster", size: 14)
+        let mediumFont = UIFont(name: "Chalkduster", size: 20)
+        let largeFont = UIFont(name: "Chalkduster", size: 28)
+        
+        let smallAttr = [NSForegroundColorAttributeName: UIColor.zhTintColor(),
+            NSFontAttributeName: smallFont!]
+        let mediumAttr = [NSForegroundColorAttributeName: UIColor.zhTintColor(),
+            NSFontAttributeName: mediumFont!]
+
+        let largeAttr = [NSForegroundColorAttributeName: UIColor.zhTintColor(),
+            NSFontAttributeName: largeFont!]
+
+        UINavigationBar.appearance().titleTextAttributes = mediumAttr
+        UINavigationBar.appearance().barTintColor = UIColor.clearColor()
+        UINavigationBar.appearance().tintColor = UIColor.zhTintColor()
+        UIBarButtonItem.appearance().setTitleTextAttributes(mediumAttr, forState: UIControlState.Normal)
+        
+        UIToolbar.appearance().barTintColor = UIColor.zhBackgroundColor()
+        UIToolbar.appearance().tintColor = UIColor.zhTintColor()
+        
+        UITableViewCell.appearance().backgroundColor = UIColor.zhBackgroundColor()
+        UITableView.appearance().backgroundColor = UIColor.zhBackgroundColor()
+        
+        UILabel.appearance().font = mediumFont
+        UILabel.appearance().textColor = UIColor.zhTintColor()
+        
+        
+        UISegmentedControl.appearance().tintColor = UIColor.zhTintColor()
+        UISegmentedControl.appearance().setTitleTextAttributes(smallAttr, forState: UIControlState.Normal)
     }
 
 

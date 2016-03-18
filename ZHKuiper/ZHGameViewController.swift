@@ -10,10 +10,15 @@ import UIKit
 import SpriteKit
 
 class ZHGameViewController: UIViewController {
-
+    
+    @IBOutlet weak var menuView: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        ZHGameModel.sharedInstance
+        
         let skView = self.view as! SKView
         skView.ignoresSiblingOrder = true
         
@@ -27,12 +32,17 @@ class ZHGameViewController: UIViewController {
         }
         
         skView.presentScene(startScene)
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(ZHNotificationStart, object: nil, queue: NSOperationQueue.mainQueue()) { (note) -> Void in
+            self.hideMenu()
+        }
+        
     }
-
+    
     override func shouldAutorotate() -> Bool {
         return true
     }
-
+    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
             return .AllButUpsideDown
@@ -40,13 +50,32 @@ class ZHGameViewController: UIViewController {
             return .All
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    
+    private func hideMenu() {
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.menuView.alpha = 0
+            }) { (animated) -> Void in
+                self.menuView.hidden = true
+        }
+    }
+    
+    private func showMenu() {
+        self.menuView.hidden = false
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.menuView.alpha = 1.0
+            }) { (animated) -> Void in
+                
+        }
+    }
+
 }
