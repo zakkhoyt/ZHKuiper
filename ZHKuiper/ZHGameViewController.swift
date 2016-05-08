@@ -18,24 +18,17 @@ class ZHGameViewController: UIViewController {
         super.viewDidLoad()
         
         ZHGameModel.sharedInstance
-        
-        let skView = self.view as! SKView
-        skView.ignoresSiblingOrder = true
-        
-        let startScene = ZHStartScene(size: view.bounds.size)
-        startScene.scaleMode = .ResizeFill
-        startScene.startHandler = {
-            let gameScene = ZHGameScene(size: self.view.bounds.size)
-            gameScene.scaleMode = .ResizeFill
-            let transition = SKTransition.doorwayWithDuration(1.0)
-            skView.presentScene(gameScene, transition: transition)
-        }
-        
-        skView.presentScene(startScene)
+
+        reset()
         
         NSNotificationCenter.defaultCenter().addObserverForName(ZHNotificationStart, object: nil, queue: NSOperationQueue.mainQueue()) { (note) -> Void in
             self.hideMenu()
         }
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(ZHNotificationQuit, object: nil, queue: NSOperationQueue.mainQueue()) { (note) -> Void in
+            self.reset()
+        }
+
         
     }
     
@@ -60,6 +53,23 @@ class ZHGameViewController: UIViewController {
         return true
     }
     
+    private func reset() {
+        let skView = self.view as! SKView
+        skView.ignoresSiblingOrder = true
+        
+        let startScene = ZHStartScene(size: view.bounds.size)
+        startScene.scaleMode = .ResizeFill
+        startScene.startHandler = {
+            let gameScene = ZHGameScene(size: self.view.bounds.size)
+            gameScene.scaleMode = .ResizeFill
+            let transition = SKTransition.doorwayWithDuration(1.0)
+            skView.presentScene(gameScene, transition: transition)
+        }
+        
+        skView.presentScene(startScene)
+
+        view.bringSubviewToFront(menuView)
+    }
     
     private func hideMenu() {
         UIView.animateWithDuration(0.3, animations: { () -> Void in

@@ -31,7 +31,8 @@ class ZHGameScene: SKScene {
     // MARK: Public methods
     
     func tap(sender: UITapGestureRecognizer) {
-        clear()
+//        clear()
+        NSNotificationCenter.defaultCenter().postNotificationName(ZHNotificationQuit, object: nil)
     }
     
     
